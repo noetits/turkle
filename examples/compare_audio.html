@@ -1,0 +1,60 @@
+<!--
+    HTML template that uses JavaScript to prepare the input element.
+
+    This template uses Bootstrap and jQuery.
+    The JavaScript and CSS are loaded from public CDNs.
+
+    The input CSV file is a 3 columns with the heading of a1, a2, and the style.
+    The CSV input file should have 3 columns.
+    The template then uses ${a1} and ${a1} to display the audios
+
+    The CSV output file will have columns for Input.text and Answer.emotion
+    in addition to metadata columns.
+-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script>
+$(document).ready(function() {
+  // process a click on an emotion button
+  $('.option').on('click', function(event) {
+    // copy answer to hidden input
+    $('input[name="emotion"]').val($(this).html());
+    // erase any selected button
+    $('.option').removeClass('btn-info');
+    // highlight the current button
+    $(this).addClass('btn-info');
+    // don't submit the form
+    event.preventDefault();
+  });
+});
+</script>
+
+<div class="container mt-2">
+  <h3>Instructions</h3>
+  <p>
+        Which sample sounds more ${style}, A or B ?
+  </p>
+  <div class="row">
+
+    <div class="form-group">
+        A.
+        <audio controls src="${a1}">Your browser does not support this task</audio>
+        <br>
+        <br>
+        <br>
+        B.
+        <audio controls src="${a2}">Your browser does not support this task</audio>
+    </div>
+
+    <div class="col-4">
+      <h5>Select an option</h5>
+      <div class="btn-group-vertical">
+        <button class="btn btn-secondary option">A</button>
+        <button class="btn btn-secondary option">B</button>
+        <button class="btn btn-secondary option">Neither</button>
+        <button class="btn btn-secondary option">They are equally ${style}</button>
+      </div>
+      <input type="hidden" name="emotion">
+    </div>
+  </div>
+</div>
